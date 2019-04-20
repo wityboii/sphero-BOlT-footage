@@ -1,0 +1,129 @@
+var _messageChannels = [0];
+
+async function controlsifThen() {
+	if (true) {
+	}
+}
+
+async function startProgram() {
+	listenForIRMessage(_messageChannels);
+}
+
+async function lights() {
+	setMainLed({ r: 98, g: 162, b: 255 });
+	await fade({ r: 246, g: 223, b: 255 }, { r: 255, g: 5, b: 167 }, 0);
+	await strobe({ r: 216, g: 206, b: 255 }, 0, 0);
+	setBackLed(0);
+	setBackLed({ r: 220, g: 255, b: 213 });
+	setFrontLed({ r: 156, g: 255, b: 190 });
+	playMatrixAnimation(0, true);
+	setMatrixRotation(0);
+	clearMatrix();
+	pauseMatrixAnimation();
+	overrideMatrixAnimationFramerate(10);
+	overrideMatrixAnimationTransition(MatrixAnimationTransition.None);
+	setMatrixCharacter('', { r: 251, g: 252, b: 255 });
+	await scrollMatrixText('', { r: 134, g: 33, b: 255 }, 15, true);
+	drawMatrixPixel({ r: 130, g: 77, b: 255 }, { x: 0, y: 0 });
+	drawMatrixLine({ r: 154, g: 255, b: 238 }, { x: 0, y: 0 }, { x: 0, y: 0 });
+	setBackLed(getLuminosity());
+	await fade(getMainLed(), getBackLed(), 0);
+	setMainLed(getFrontLed());
+}
+
+async function sounds() {
+	await Sound.play(true);
+	await speak('', true);
+}
+
+async function controlsifElse() {
+	if (true) {
+	} else {
+	}
+}
+
+async function controlsloopTimes() {
+	for (var _i0 = 0; _i0 < 0; ++_i0) {
+		await delay(0.025);
+	}
+}
+
+async function controlsloopUntil() {
+	while (!true) {
+		await delay(0.025);
+	}
+}
+
+async function controlsexit() {
+	exitProgram();
+}
+
+async function movement() {
+	await roll(180, 80, 0 + 0);
+	stopRoll();
+	setSpeed(0);
+	setHeading(0);
+	await spin(0, 0);
+	await rawMotor(0, 0, 0);
+	setStabilization(true);
+	resetAim();
+	await calibrateCompass();
+	setCompassDirection(0);
+	await roll(getHeading(), getSpeed(), getElapsedTime());
+	await roll(getCompassDirection(), getDistance(), 0);
+	setSpeed(getLastIRMessage());
+}
+
+async function controlsloopForever() {
+	while (true) {
+		await delay(0.025);
+	}
+}
+
+async function controlsdelay() {
+	await delay(0);
+	await delay(0);
+}
+
+async function operators() {
+	setMainLed(Object.assign({}, { r: 134, g: 255, b: 217 }, { r: 0 }));
+	setBackLed({ r: 251, g: 56, b: 255 }.r);
+	setMainLed(getRandomColor());
+	await delay(getRandomInt(0, 100));
+}
+
+async function communications() {
+	startIRBroadcast(0, 1);
+	stopIRBroadcast();
+	startIRFollow(0, 1);
+	stopIRFollow();
+	startIREvade(0, 1);
+	stopIREvade();
+	sendIRMessage(0, 5);
+}
+
+async function onCollision() {
+}
+registerEvent(EventType.onCollision, onCollision);
+
+async function onCharging() {
+}
+registerEvent(EventType.onCharging, onCharging);
+
+async function onNotCharging() {
+}
+registerEvent(EventType.onNotCharging, onNotCharging);
+
+async function onIRMessage0(channel) {
+	if (channel !== 0) return;
+
+	listenForIRMessage(_messageChannels);
+}
+registerEvent(EventType.onIRMessage, onIRMessage0);
+
+registerMatrixAnimation({
+	frames: [[[1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1]]],
+	palette: [{ r: 255, g: 255, b: 255 }, { r: 0, g: 0, b: 0 }, { r: 255, g: 0, b: 0 }, { r: 255, g: 64, b: 0 }, { r: 255, g: 128, b: 0 }, { r: 255, g: 191, b: 0 }, { r: 255, g: 255, b: 0 }, { r: 185, g: 246, b: 30 }, { r: 0, g: 255, b: 0 }, { r: 185, g: 255, b: 255 }, { r: 0, g: 255, b: 255 }, { r: 0, g: 0, b: 255 }, { r: 145, g: 0, b: 211 }, { r: 157, g: 48, b: 118 }, { r: 255, g: 0, b: 255 }, { r: 204, g: 27, b: 126 }],
+	fps: 10,
+	transition: MatrixAnimationTransition.None
+});
